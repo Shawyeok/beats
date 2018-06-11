@@ -54,6 +54,7 @@ import (
 	_ "github.com/elastic/beats/libbeat/processors/add_host_metadata"
 	_ "github.com/elastic/beats/libbeat/processors/add_kubernetes_metadata"
 	_ "github.com/elastic/beats/libbeat/processors/add_locale"
+	_ "github.com/elastic/beats/libbeat/processors/add_timestamp"
 	_ "github.com/elastic/beats/libbeat/processors/dissect"
 
 	// Register autodiscover providers
