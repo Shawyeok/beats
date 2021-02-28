@@ -26,14 +26,15 @@ import (
 
 // Config represents a configuration for a condition, as you would find it in the config files.
 type Config struct {
-	Equals    *Fields  `config:"equals"`
-	Contains  *Fields  `config:"contains"`
-	Regexp    *Fields  `config:"regexp"`
-	Range     *Fields  `config:"range"`
-	HasFields []string `config:"has_fields"`
-	OR        []Config `config:"or"`
-	AND       []Config `config:"and"`
-	NOT       *Config  `config:"not"`
+	Equals     *Fields  `config:"equals"`
+	Contains   *Fields  `config:"contains"`
+	Regexp     *Fields  `config:"regexp"`
+	Range      *Fields  `config:"range"`
+	HasFields  []string `config:"has_fields"`
+	OR         []Config `config:"or"`
+	AND        []Config `config:"and"`
+	NOT        *Config  `config:"not"`
+	Percentage *PercentageConfig
 }
 
 // Condition is the interface for all defined conditions
@@ -83,6 +84,8 @@ func NewCondition(config *Config) (Condition, error) {
 		if err == nil {
 			condition, err = NewNotCondition(inner)
 		}
+	case config.Percentage != nil:
+		condition, err = NewPercentageCondition(config.Percentage)
 	default:
 		err = errors.New("missing condition")
 	}
